@@ -1,0 +1,69 @@
+[gd_scene load_steps=10 format=3 uid="uid://bw66wc3yg5bgk"]
+
+[ext_resource type="Script" path="res://Mob.cs" id="1_b6b3v"]
+[ext_resource type="Texture2D" uid="uid://1a46kqxwmny8" path="res://art/enemyFlyingAlt_1.png" id="2_yqvqg"]
+[ext_resource type="Texture2D" uid="uid://m64pa88gkn5v" path="res://art/enemyFlyingAlt_2.png" id="3_pxwk4"]
+[ext_resource type="Texture2D" uid="uid://ddjwm7jpotq47" path="res://art/enemySwimming_1.png" id="4_1jak1"]
+[ext_resource type="Texture2D" uid="uid://bq2pi8jb3qbou" path="res://art/enemySwimming_2.png" id="5_7a7r1"]
+[ext_resource type="Texture2D" uid="uid://chp3t013ore7t" path="res://art/enemyWalking_1.png" id="6_sr8ef"]
+[ext_resource type="Texture2D" uid="uid://htfcdo0vxlf4" path="res://art/enemyWalking_2.png" id="7_thqtn"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_re6ui"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_yqvqg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_pxwk4")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_1jak1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_7a7r1")
+}],
+"loop": true,
+"name": &"swim",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_sr8ef")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_thqtn")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 3.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_83oki"]
+radius = 11.6703
+height = 40.8642
+
+[node name="Mob" type="RigidBody2D"]
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_b6b3v")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_re6ui")
+animation = &"fly"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+scale = Vector2(3.08476, 2.44713)
+shape = SubResource("CapsuleShape2D_83oki")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
